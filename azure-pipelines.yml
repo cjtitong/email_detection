@@ -1,14 +1,16 @@
 trigger:
-- main  # or 'master' if you're using that
+- main  # or 'master'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default
+  demands:
+    - agent.name -equals CJTAgent
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.13.3'
-  displayName: 'Set up Python 3.13.3'
+    versionSpec: '3.13'
+  displayName: 'Set up Python 3.13'
 
 - script: |
     python -m pip install --upgrade pip
@@ -16,5 +18,5 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    pytest  # or `python -m unittest discover`
+    pytest
   displayName: 'Run tests'
